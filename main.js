@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const config = require('./config.json')
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const prefix = 'Wordle ';
@@ -24,7 +25,7 @@ client.on('messageCreate', message =>{
         }
         else
         {
-            message.channel.send("Please add yourself to the scoreboard by using Wordle add \"username\"")
+            map1.set(message.author.username, args.charAt(4));
         }
         //message.channel.send(map1.get(message.author.username));
     }
@@ -73,4 +74,4 @@ client.on('messageCreate', message =>{
 })
 
 
-client.login("OTM2ODM2NTM4NTM5NTczMjY4.YfS_BA.mqRYmmUkdeIMLJ-__06xHtMBzOo");
+client.login(config.token);
