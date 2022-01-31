@@ -11,7 +11,7 @@ client.once('ready', () =>{
 })
 
 client.on('messageCreate', message =>{
-    if(!message.content.startsWith(prefix) || message.author.bot) return;
+    if((!message.content.startsWith(prefix) && !message.content.startsWith(prefix.toLowerCase) && !message.content.startsWith(prefix.toUpperCase)) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length);
     const command = args.split(" ");
@@ -21,7 +21,7 @@ client.on('messageCreate', message =>{
     if(message.channel.name == "wordle" && args.substring(0, 5).match(".*\\d\\d\\d \\d*."))
     {
         if (map1.get(message.author.username) != null){
-            map1.set(message.author.username, args.charAt(4));
+            map1.set(message.author.username, parseInt(args.charAt(4)) + parseInt(map1.get(message.author.username)));
         }
         else
         {
@@ -29,47 +29,33 @@ client.on('messageCreate', message =>{
         }
         //message.channel.send(map1.get(message.author.username));
     }
-    else if (message.channel.name == "wordle" && command[0] == 'setup')
-    {
-        //console.log(args);
-        const list = args.split(' ');
-
-        for (const item of list)
-        {
-            map1.set(item, 0);
-
-        }
-    }
-    else if (message.channel.name == "wordle" && command[0] == 'add')
-    {
-        const list = args.substring(4).split(' ');
-        for (const item of list)
-        {
-            map1.set(item, 0);
-
-        }
-    }
-    else if(message.channel.name == "wordle" && command[0] == 'remove')
-    {
-        const list = args.split(' ');
-
-        for (const item of list)
-        {
-            map1.delete(item, 0);
-
-        }
-    }
     else if (message.channel.name == "wordle" && command[0] == 'scoreboard')
     {
         var config = "";
-        const iterator1 = map1.keys();
-
-        for (let value of iterator1)
+        if (map1.keys() != null)
         {
-            config += value + " " + map1.get(value) + "\n";
+            const iterator1 = map1.keys();
+
+            for (let value of iterator1)
+            {
+                config += value + " " + map1.get(value) + "\n";
+            }
         }
+        else 
+        {
+            config = "Empty";
+        }
+        
 
         message.channel.send(config);
+    }
+    else if (message.channel.name == "wordle" && command[0] == 'help')
+    {
+        message.channel.send(
+            "Commands:\n" +
+            "Wordle help - lists all commands\n" +
+            "Wordle scoreboard - lists scoreboard, compounds daily\n"
+        );
     }
 })
 
