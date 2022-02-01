@@ -36,7 +36,8 @@ client.on('messageCreate', message =>{
     {
         var config = "";
         var config = "From best to worst:\n";
-        const iterator1 = map1.keys();
+        const mapSort1 = new Map([...map1.entries()].sort((a, b) => a[1] - b[1]));
+        const iterator1 = mapSort1.keys();
 
         for (let value of iterator1)
         {
