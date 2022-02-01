@@ -54,6 +54,17 @@ client.on('messageCreate', message =>{
             "Wordle scoreboard - lists scoreboard, compounds daily\n"
         );
     }
+    else if (message.channel.name == "mods" && command[0] == 'remove')
+    {
+        const list = args.split(' ');
+        //message.channel.send("penis");
+        for (const item of list)
+        {
+            map1.delete(item, 0);
+            map2.delete(item, 0);
+            //mapSort1.delete(item, 0);
+        }
+    }
 })
 
 
