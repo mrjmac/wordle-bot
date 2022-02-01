@@ -41,7 +41,7 @@ client.on('messageCreate', message =>{
 
         for (let value of iterator1)
         {
-            config += "**" + value + "**: " + (map1.get(value))/(map2.get(value)) + "\n";
+            config += "**" + value + "**: " + Math.round((map1.get(value))/(map2.get(value)) * 100) / 100 + "\n";
         }
         
         message.channel.send(config);
