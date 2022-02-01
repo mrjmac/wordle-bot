@@ -5,6 +5,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 const prefix = 'Wordle ';
 const fs = require('fs');
 const map1 = new Map();
+const map2 = new Map();
  
 client.once('ready', () =>{
     console.log('Wordlebot is online');
@@ -22,31 +23,26 @@ client.on('messageCreate', message =>{
     {
         if (map1.get(message.author.username) != null){
             map1.set(message.author.username, parseInt(args.charAt(4)) + parseInt(map1.get(message.author.username)));
+            map2.set(message.author.username, parseInt(map2.get(message.author.username)) + 1);
         }
         else
         {
             map1.set(message.author.username, args.charAt(4));
+            map2.set(message.author.username, 1);
         }
         //message.channel.send(map1.get(message.author.username));
     }
     else if (message.channel.name == "wordle" && command[0] == 'scoreboard')
     {
         var config = "";
-        if (map1.keys() != null)
-        {
-            const iterator1 = map1.keys();
+        var config = "From best to worst:\n";
+        const iterator1 = map1.keys();
 
-            for (let value of iterator1)
-            {
-                config += value + " " + map1.get(value) + "\n";
-            }
-        }
-        else 
+        for (let value of iterator1)
         {
-            config = "Empty";
+            config += "**" + value + "**: " + (map1.get(value))/(map2.get(value)) + "\n";
         }
         
-
         message.channel.send(config);
     }
     else if (message.channel.name == "wordle" && command[0] == 'help')
