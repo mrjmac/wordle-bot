@@ -6,6 +6,7 @@ const prefix = 'Wordle ';
 const fs = require('fs');
 const map1 = new Map();
 const map2 = new Map();
+const map3 = new Map();
  
 client.once('ready', () =>{
     console.log('Wordlebot is online');
@@ -34,14 +35,19 @@ client.on('messageCreate', message =>{
     }
     else if (message.channel.name == "wordle" && command[0] == 'scoreboard')
     {
+        const iterator0 = map1.keys();
+        for (let value of iterator0)
+        {
+            map3.set(value, Math.round((map1.get(value))/(map2.get(value)) * 100) / 100);
+        }
         var config = "";
         var config = "From best to worst:\n";
-        const mapSort1 = new Map([...map1.entries()].sort((a, b) => a[1] - b[1]));
+        const mapSort1 = new Map([...map3.entries()].sort((a, b) => a[1] - b[1]));
         const iterator1 = mapSort1.keys();
 
         for (let value of iterator1)
         {
-            config += "**" + value + "**: " + Math.round((map1.get(value))/(map2.get(value)) * 100) / 100 + "\n";
+            config += "**" + value + "**: " + map3.get(value) + "\n";
         }
         
         message.channel.send(config);
