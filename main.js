@@ -22,14 +22,17 @@ client.on('messageCreate', message =>{
 
     if(message.channel.name == "wordle" && args.substring(0, 5).match(".*\\d\\d\\d \\d*."))
     {
-        if (map1.get(message.author.username) != null){
-            map1.set(message.author.username, parseInt(args.charAt(4)) + parseInt(map1.get(message.author.username)));
-            map2.set(message.author.username, parseInt(map2.get(message.author.username)) + 1);
-        }
-        else
+        if (args.charAt(4).match("\\d"))
         {
-            map1.set(message.author.username, args.charAt(4));
-            map2.set(message.author.username, 1);
+            if (map1.get(message.author.username) != null){
+                map1.set(message.author.username, parseInt(args.charAt(4)) + parseInt(map1.get(message.author.username)));
+                map2.set(message.author.username, parseInt(map2.get(message.author.username)) + 1);
+            }
+            else
+            {
+                map1.set(message.author.username, args.charAt(4));
+                map2.set(message.author.username, 1);
+            }
         }
         //message.channel.send(map1.get(message.author.username));
     }
@@ -63,11 +66,11 @@ client.on('messageCreate', message =>{
     else if (message.channel.name == "mods" && command[0] == 'remove')
     {
         const list = args.split(' ');
-        //message.channel.send("penis");
         for (const item of list)
         {
             map1.delete(item, 0);
             map2.delete(item, 0);
+            map3.delete(item, 0);
             //mapSort1.delete(item, 0);
         }
     }
