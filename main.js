@@ -17,8 +17,6 @@ client.on('messageCreate', message =>{
 
     const args = message.content.slice(prefix.length);
     const command = args.split(" ");
-    //console.log(command[0]);
-    //console.log(args);
 
     if(message.channel.name == "wordle" && args.substring(0, 5).match(".*\\d\\d\\d \\d*."))
     {
