@@ -32,7 +32,6 @@ client.on('messageCreate', message =>{
                 map2.set(message.author.username, 1);
             }
         }
-        //message.channel.send(map1.get(message.author.username));
     }
     else if (message.channel.name == "wordle" && command[0] == 'scoreboard')
     {
