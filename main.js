@@ -68,7 +68,6 @@ client.on('messageCreate', message =>{
             map1.delete(item, 0);
             map2.delete(item, 0);
             map3.delete(item, 0);
-            //mapSort1.delete(item, 0);
         }
     }
 })
